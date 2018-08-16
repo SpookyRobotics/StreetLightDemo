@@ -1,6 +1,5 @@
 package nyc.jsjrobotics.streetlight
 
-import android.content.Context
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
@@ -8,7 +7,6 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v4.app.FragmentActivity
 import android.widget.FrameLayout
-import com.nhaarman.mockitokotlin2.mock
 import nyc.jsjrobotics.streetlight.lightDisplay.LightDisplayPresenter
 import nyc.jsjrobotics.streetlight.lightDisplay.LightsDisplayFragment
 import nyc.jsjrobotics.streetlight.lightDisplay.LightsDisplayView
@@ -18,10 +16,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.junit.MockitoJUnit
 
 
-@RunWith(MockitoJUnitRunner::class)
+@RunWith(AndroidJUnit4::class)
 class LightDisplayFragmentTest {
     class TestActivity : FragmentActivity()
 
@@ -29,15 +27,17 @@ class LightDisplayFragmentTest {
     @Rule
     var mActivityRule: ActivityTestRule<EspressoTestActivity> = ActivityTestRule(EspressoTestActivity::class.java)
 
+    @JvmField
+    @Rule
+    var mockitoRule = MockitoJUnit.rule()
+
     lateinit var testSubject : LightsDisplayFragment
+
     @Mock
     private lateinit var view: LightsDisplayView
 
     @Mock
     private lateinit var presenter: LightDisplayPresenter
-
-    @Mock
-    private lateinit var mMockContext: Context
 
     @Before
     fun setup() {
